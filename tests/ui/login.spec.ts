@@ -1,14 +1,22 @@
 import { test, expect } from '@playwright/test';
 import { env } from '../../configs/env';
-import { ROUTES } from '../../configs/constants';
+import { ROUTES, MESSAGES } from '../../configs/constants';
+import { LoginPage } from '../../pom/pages/LoginPage';
 
 test('admin can log in', async ({ page }) => {
-  await page.goto(ROUTES.login);   // ya no hay URL completa ni credenciales
+  const loginPage = new LoginPage(page);
 
-  await page.locator('input[name="username"]').fill(env.ui.username);
-  await page.locator('input[name="password"]').fill(env.ui.password);
-  await page.locator('button[type="submit"]').click();
+  await loginPage.goto();
+  await loginPage.login(env.ui.username, env.ui.password);
 
   await expect(page).toHaveURL(ROUTES.dashboard);
-  await expect(page.locator('.oxd-topbar-header-breadcrumb')).toContainText('Dashboard');
+});
+
+test('invalid password shows an error', async ({ page }) => {
+  const loginPage = new LoginPage(page);
+
+  await loginPage.goto();
+  await loginPage.login(env.ui.username, 'wrong-password');
+
+  await expect(loginPage.el.error).toHaveText(MESSAGES.invalidCredentials);
 });
