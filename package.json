@@ -1,0 +1,21 @@
+{
+  "name": "coe-proyect",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:ui": "playwright test --project=chromium",
+  "test:staging": "cross-env TEST_ENV=staging playwright test --project=chromium",
+  "report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.3",
+    "cross-env": "^10.1.0",
+    "dotenv": "^18.0.5"
+  }
+}
