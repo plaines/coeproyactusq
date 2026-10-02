@@ -9,16 +9,17 @@ export default defineConfig({
   reporter: [['list'], ['html', { open: 'never' }]],
 
   use: {
-    baseURL: env.uiBaseUrl,          // ahora viene del .env
+    baseURL: env.uiBaseUrl,
     actionTimeout: env.actionTimeout,
-    trace: 'retain-on-failure',      // guarda el trace solo si el test falla
+    trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
   },
 
   projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'firefox',  use: { ...devices['Desktop Firefox'] } },
-    { name: 'webkit',   use: { ...devices['Desktop Safari'] } },
+    { name: 'chromium', testDir: './tests/ui', use: { ...devices['Desktop Chrome'] } },
+    { name: 'firefox',  testDir: './tests/ui', use: { ...devices['Desktop Firefox'] } },
+    { name: 'webkit',   testDir: './tests/ui', use: { ...devices['Desktop Safari'] } },
+    { name: 'unit',     testDir: './tests/unit' },   // tests de lógica pura, sin navegador
   ],
 });

@@ -2,6 +2,8 @@ import { test as base, expect as baseExpect, Page } from '@playwright/test';
 import { PageManager } from '../../pom/PageManager';
 import { env } from '../../configs/env';
 import { ROUTES } from '../../configs/constants';
+import { AdminUser } from '../../domain/AdminUser';
+
 
 // ---------- expect personalizado ----------
 // Mantiene la sintaxis expect(algo).toAlgo(), pero con nuestro propio matcher
@@ -37,15 +39,16 @@ export const test = base.extend<Fixtures>({
     await use(new PageManager(page));
   },
 
-  authedPages: async ({ pages, page }, use) => {
-    // SETUP: iniciar sesión
+  authedPages: async ({ pages, page }, use, testInfo) => {
+    const admin = new AdminUser(env.ui.username, env.ui.password);
+    testInfo.annotations.push({ type: 'user', description: admin.describe() });  // aparece en el reporte
+
     await pages.login.goto();
-    await pages.login.login(env.ui.username, env.ui.password);
+    await pages.login.loginAs(admin);
     await expect(page).toBeLoggedIn();
 
-    await use(pages);   // <- aquí corre el test
+    await use(pages);
 
-    // TEARDOWN: se ejecuta al terminar ESE test (pase o falle)
     await pages.dashboard.logout();
   },
 });

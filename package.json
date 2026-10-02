@@ -4,10 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:ui": "playwright test --project=chromium",
+  "test": "playwright test --project=chromium --project=unit",
+  "test:ui": "playwright test --project=chromium",
+  "test:unit": "playwright test --project=unit",
+  "test:firefox": "playwright test --project=firefox",
+  "test:webkit": "playwright test --project=webkit",
+  "test:all-browsers": "playwright test --project=chromium --project=firefox --project=webkit",
   "test:staging": "cross-env TEST_ENV=staging playwright test --project=chromium",
-  "report": "playwright show-report"
-  },
+  "report": "playwright show-report",
+  "trace": "playwright show-trace",
+  "typecheck": "tsc --noEmit"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
