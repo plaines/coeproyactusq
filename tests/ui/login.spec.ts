@@ -1,22 +1,23 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../fixtures/test';
 import { env } from '../../configs/env';
-import { ROUTES, MESSAGES } from '../../configs/constants';
-import { LoginPage } from '../../pom/pages/LoginPage';
+import { MESSAGES } from '../../configs/constants';
+import loginCases from '../data/login.data.json';
 
-test('admin can log in', async ({ page }) => {
-  const loginPage = new LoginPage(page);
+test.describe('Login', () => {
+  test.beforeEach(async ({ pages }) => {     // hook: inicialización compartida
+    await pages.login.goto();
+  });
 
-  await loginPage.goto();
-  await loginPage.login(env.ui.username, env.ui.password);
+  test('admin can log in', async ({ pages, page }) => {
+    await pages.login.login(env.ui.username, env.ui.password);
+    await expect(page).toBeLoggedIn();       // nuestro matcher
+  });
 
-  await expect(page).toHaveURL(ROUTES.dashboard);
-});
-
-test('invalid password shows an error', async ({ page }) => {
-  const loginPage = new LoginPage(page);
-
-  await loginPage.goto();
-  await loginPage.login(env.ui.username, 'wrong-password');
-
-  await expect(loginPage.el.error).toHaveText(MESSAGES.invalidCredentials);
+  // Test parametrizado: se genera un test por cada fila del JSON
+  for (const tc of loginCases) {
+    test(`rejects invalid login: ${tc.name}`, async ({ pages }) => {
+      await pages.login.login(tc.username, tc.password);
+      await expect(pages.login.el.error).toHaveText(MESSAGES.invalidCredentials);
+    });
+  }
 });
