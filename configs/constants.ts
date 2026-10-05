@@ -15,3 +15,8 @@ export const ROLES = {
   admin: 'Admin',
   ess: 'ESS',
 } as const;
+
+export const API_PATHS = {
+  auth: '/auth',
+  booking: '/booking',
+} as const;

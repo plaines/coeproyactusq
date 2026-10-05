@@ -4,17 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "test": "playwright test --project=chromium --project=unit",
-  "test:ui": "playwright test --project=chromium",
-  "test:unit": "playwright test --project=unit",
-  "test:firefox": "playwright test --project=firefox",
-  "test:webkit": "playwright test --project=webkit",
-  "test:all-browsers": "playwright test --project=chromium --project=firefox --project=webkit",
-  "test:staging": "cross-env TEST_ENV=staging playwright test --project=chromium",
-  "report": "playwright show-report",
-  "trace": "playwright show-trace",
-  "typecheck": "tsc --noEmit"
-},
+    "test": "playwright test --project=chromium --project=api --project=unit",
+    "test:ui": "playwright test --project=chromium",
+    "test:unit": "playwright test --project=unit",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:all-browsers": "playwright test --project=chromium --project=firefox --project=webkit",
+    "test:staging": "cross-env TEST_ENV=staging playwright test --project=chromium",
+    "report": "playwright show-report",
+    "trace": "playwright show-trace",
+    "typecheck": "tsc --noEmit",
+    "test:api": "playwright test --project=api",
+    "test:bdd": "bddgen && playwright test --project=bdd"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -23,6 +25,8 @@
     "@playwright/test": "^1.63.0",
     "@types/node": "^26.6.3",
     "cross-env": "^10.1.0",
-    "dotenv": "^18.0.5"
+    "dotenv": "^18.0.5",
+    "playwright-bdd": "^9.2.1",
+    "zod": "^4.6.5"
   }
 }
