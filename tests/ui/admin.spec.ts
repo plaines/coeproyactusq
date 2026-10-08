@@ -3,7 +3,7 @@ import { ROLES } from '../../configs/constants';
 
 test.describe('Admin - User Management', () => {
   test.beforeEach(async ({ authedPages }) => {
-    await authedPages.admin.goto();          // ya hay sesión gracias a la fixture
+    await authedPages.admin.goto();
   });
 
   test('filter users by role (dropdown)', async ({ authedPages }) => {
@@ -21,7 +21,7 @@ test.describe('Admin - User Management', () => {
       await checkbox.set(true);
       await expect(checkbox.input).toBeChecked();
     } finally {
-      await checkbox.set(false);             // limpieza: corre aunque el expect falle
+      await checkbox.set(false);
     }
   });
 });

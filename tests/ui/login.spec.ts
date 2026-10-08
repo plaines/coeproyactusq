@@ -4,16 +4,16 @@ import { MESSAGES } from '../../configs/constants';
 import loginCases from '../data/login.data.json';
 
 test.describe('Login', () => {
-  test.beforeEach(async ({ pages }) => {     // hook: inicialización compartida
+  test.beforeEach(async ({ pages }) => {
     await pages.login.goto();
   });
 
   test('admin can log in', async ({ pages, page }) => {
     await pages.login.login(env.ui.username, env.ui.password);
-    await expect(page).toBeLoggedIn();       // nuestro matcher
+    await expect(page).toBeLoggedIn();
   });
 
-  // Test parametrizado: se genera un test por cada fila del JSON
+
   for (const tc of loginCases) {
     test(`rejects invalid login: ${tc.name}`, async ({ pages }) => {
       await pages.login.login(tc.username, tc.password);

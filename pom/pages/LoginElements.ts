@@ -6,8 +6,8 @@ export class LoginElements {
   readonly username: TextInput;
   readonly password: TextInput;
   readonly submit: Button;
-  readonly error;          // mensaje de credenciales inválidas
-  readonly fieldErrors;    // mensajes "Required" bajo los campos
+  readonly error;
+  readonly fieldErrors;
 
   constructor(page: Page) {
     this.username = new TextInput('Username', page.locator('input[name="username"]'));

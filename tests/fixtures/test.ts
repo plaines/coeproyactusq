@@ -8,7 +8,7 @@ import { AdminUser } from '../../domain/AdminUser';
 import { env } from '../../configs/env';
 import { ROUTES } from '../../configs/constants';
 
-// ---------- expect personalizado ----------
+
 export const expect = baseExpect.extend({
   async toBeLoggedIn(page: Page, options?: { timeout?: number }) {
     const name = 'toBeLoggedIn';
@@ -28,7 +28,7 @@ export const expect = baseExpect.extend({
     };
   },
 
-  // Verifica que un objeto cumpla un esquema de zod
+
   toMatchSchema(received: unknown, schema: ZodType) {
     const result = schema.safeParse(received);
     return {
@@ -39,7 +39,7 @@ export const expect = baseExpect.extend({
   },
 });
 
-// ---------- fixtures personalizadas ----------
+
 type Fixtures = {
   pages: PageManager;
   authedPages: PageManager;
@@ -65,7 +65,7 @@ export const test = base.extend<Fixtures>({
     await pages.dashboard.logout();
   },
 
-  // `request`: cliente HTTP de Playwright, sin navegador
+
   bookingApi: async ({ request }, use) => {
     await use(new BookingApi(request));
   },

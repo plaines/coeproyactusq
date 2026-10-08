@@ -12,7 +12,7 @@ export class AdminElements {
   readonly firstRowCheckbox: Checkbox;
 
   constructor(page: Page) {
-    // Locators encadenados: grupo del formulario -> filtrado por etiqueta -> control
+
     const field = (label: string) =>
       page.locator('.oxd-input-group').filter({ hasText: label }).locator('.oxd-select-text');
 
@@ -22,7 +22,7 @@ export class AdminElements {
 
     this.resultRows = page.locator('.oxd-table-body .oxd-table-card');
     const firstRow = this.resultRows.first();
-    this.firstRowRole = firstRow.locator('.oxd-table-cell').nth(2);   // columna "User Role"
+    this.firstRowRole = firstRow.locator('.oxd-table-cell').nth(2);
     this.firstRowCheckbox = new Checkbox('First row', firstRow.locator('.oxd-checkbox-wrapper'));
   }
 }
