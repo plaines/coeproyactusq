@@ -30,7 +30,8 @@ test.describe('Booking API', () => {
         const res = await bookingApi.getById(created.bookingid);
 
         expect(res).toBeOK();
-        expect(await res.json()).toMatchSchema(BookingSchema);
+        const rawBody: unknown = await res.json();
+        expect(rawBody).toMatchSchema(BookingSchema);
         expect(await parseJson(res, BookingSchema)).toEqual(booking);
     });
 
@@ -63,7 +64,6 @@ test.describe('Auth API', () => {
         await parseJson(res, TokenSchema);
     });
 
-    // Rareza de la API: credenciales malas -> 200 con { reason }, no un 401
     test('POST /auth with bad credentials returns a reason', async ({ authApi }) => {
         const res = await authApi.createToken({ username: 'nobody', password: 'wrong' });
 
