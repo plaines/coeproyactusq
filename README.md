@@ -171,10 +171,5 @@ would be shared and the real environment files would be excluded through:
 
 ---
 
-## Tech Stack
 
-- Playwright
-- TypeScript
-- Node.js
-- Faker
-- Cucumber / 
+
